@@ -1,5 +1,6 @@
 package com.letscode.moviesbattleapi.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,15 +15,16 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tb_filme")
-public class Filme {
+public class Filme implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "imdbID")
-    private String imdbId;
+    private Long id;
     @Column(name = "Title")
     private String titulo;
-    @Column(name = "Year")
+    @Column(name = "ReleaseYear")
     private int ano;
     @Column(name = "Rated")
     private String classificacao;
@@ -48,30 +50,32 @@ public class Filme {
     private String premiacoes;
     @Column(name = "Poster")
     private String posterUrl;
-    @Column(name = "Rating0Source")
+    @Column(name = "Ratings0Source")
     private String fonteAvaliacao0;
-    @Column(name = "Rating0Value")
+    @Column(name = "Ratings0Value")
     private String valorAvaliacao0;
-    @Column(name = "Rating1Source")
+    @Column(name = "Ratings1Source")
     private String fonteAvaliacao1;
-    @Column(name = "Rating1Value")
+    @Column(name = "Ratings1Value")
     private String valorAvaliacao1;
-    @Column(name = "Rating2Source")
+    @Column(name = "Ratings2Source")
     private String fonteAvaliacao2;
-    @Column(name = "Rating2Value")
+    @Column(name = "Ratings2Value")
     private String valorAvaliacao2;
     @Column(name = "Metascore")
     private int metascore;
+    @Column(name = "imdbID")
+    private String imdbId;
     @Column(name = "imdbRating")
     private double avaliacaoImdb;
     @Column(name = "imdbVotes")
-    private int votosImdb;
+    private long votosImdb;
     @Column(name = "Type")
     private String tipo;
     @Column(name = "DVD")
-    private int dvd;
+    private String dvd;
     @Column(name = "BoxOffice")
-    private int boxOffice;
+    private String boxOffice;
     @Column(name = "Production")
     private String producao;
     @Column(name = "Website")
@@ -86,6 +90,7 @@ public class Filme {
     }
     
     public Filme(Filme f){
+        this.id = f.id;
         this.ano = f.ano;
         this.atores = f.atores;
         this.avaliacaoImdb = f.avaliacaoImdb;
@@ -119,6 +124,10 @@ public class Filme {
     }
     
     //Getters & setters
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
     public void setImdbId(String imdbId) {
         this.imdbId = imdbId;
     }
@@ -211,7 +220,7 @@ public class Filme {
         this.avaliacaoImdb = avaliacaoImdb;
     }
 
-    public void setVotosImdb(int votosImdb) {
+    public void setVotosImdb(long votosImdb) {
         this.votosImdb = votosImdb;
     }
 
@@ -219,11 +228,11 @@ public class Filme {
         this.tipo = tipo;
     }
 
-    public void setDvd(int dvd) {
+    public void setDvd(String dvd) {
         this.dvd = dvd;
     }
 
-    public void setBoxOffice(int boxOffice) {
+    public void setBoxOffice(String boxOffice) {
         this.boxOffice = boxOffice;
     }
 
@@ -237,6 +246,10 @@ public class Filme {
 
     public void setResponse(boolean response) {
         this.response = response;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getImdbId() {
@@ -331,7 +344,7 @@ public class Filme {
         return avaliacaoImdb;
     }
 
-    public int getVotosImdb() {
+    public long getVotosImdb() {
         return votosImdb;
     }
 
@@ -339,11 +352,11 @@ public class Filme {
         return tipo;
     }
 
-    public int getDvd() {
+    public String getDvd() {
         return dvd;
     }
 
-    public int getBoxOffice() {
+    public String getBoxOffice() {
         return boxOffice;
     }
 
@@ -361,37 +374,38 @@ public class Filme {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.imdbId);
-        hash = 97 * hash + Objects.hashCode(this.titulo);
-        hash = 97 * hash + this.ano;
-        hash = 97 * hash + Objects.hashCode(this.classificacao);
-        hash = 97 * hash + Objects.hashCode(this.lancamento);
-        hash = 97 * hash + Objects.hashCode(this.duracao);
-        hash = 97 * hash + Objects.hashCode(this.genero);
-        hash = 97 * hash + Objects.hashCode(this.diretor);
-        hash = 97 * hash + Objects.hashCode(this.escritor);
-        hash = 97 * hash + Objects.hashCode(this.atores);
-        hash = 97 * hash + Objects.hashCode(this.enredo);
-        hash = 97 * hash + Objects.hashCode(this.linguagem);
-        hash = 97 * hash + Objects.hashCode(this.pais);
-        hash = 97 * hash + Objects.hashCode(this.premiacoes);
-        hash = 97 * hash + Objects.hashCode(this.posterUrl);
-        hash = 97 * hash + Objects.hashCode(this.fonteAvaliacao0);
-        hash = 97 * hash + Objects.hashCode(this.valorAvaliacao0);
-        hash = 97 * hash + Objects.hashCode(this.fonteAvaliacao1);
-        hash = 97 * hash + Objects.hashCode(this.valorAvaliacao1);
-        hash = 97 * hash + Objects.hashCode(this.fonteAvaliacao2);
-        hash = 97 * hash + Objects.hashCode(this.valorAvaliacao2);
-        hash = 97 * hash + this.metascore;
-        hash = 97 * hash + (int) (Double.doubleToLongBits(this.avaliacaoImdb) ^ (Double.doubleToLongBits(this.avaliacaoImdb) >>> 32));
-        hash = 97 * hash + this.votosImdb;
-        hash = 97 * hash + Objects.hashCode(this.tipo);
-        hash = 97 * hash + this.dvd;
-        hash = 97 * hash + this.boxOffice;
-        hash = 97 * hash + Objects.hashCode(this.producao);
-        hash = 97 * hash + Objects.hashCode(this.website);
-        hash = 97 * hash + (this.response ? 1 : 0);
+        int hash = 3;
+        hash = 13 * hash + Objects.hashCode(this.id);
+        hash = 13 * hash + Objects.hashCode(this.titulo);
+        hash = 13 * hash + this.ano;
+        hash = 13 * hash + Objects.hashCode(this.classificacao);
+        hash = 13 * hash + Objects.hashCode(this.lancamento);
+        hash = 13 * hash + Objects.hashCode(this.duracao);
+        hash = 13 * hash + Objects.hashCode(this.genero);
+        hash = 13 * hash + Objects.hashCode(this.diretor);
+        hash = 13 * hash + Objects.hashCode(this.escritor);
+        hash = 13 * hash + Objects.hashCode(this.atores);
+        hash = 13 * hash + Objects.hashCode(this.enredo);
+        hash = 13 * hash + Objects.hashCode(this.linguagem);
+        hash = 13 * hash + Objects.hashCode(this.pais);
+        hash = 13 * hash + Objects.hashCode(this.premiacoes);
+        hash = 13 * hash + Objects.hashCode(this.posterUrl);
+        hash = 13 * hash + Objects.hashCode(this.fonteAvaliacao0);
+        hash = 13 * hash + Objects.hashCode(this.valorAvaliacao0);
+        hash = 13 * hash + Objects.hashCode(this.fonteAvaliacao1);
+        hash = 13 * hash + Objects.hashCode(this.valorAvaliacao1);
+        hash = 13 * hash + Objects.hashCode(this.fonteAvaliacao2);
+        hash = 13 * hash + Objects.hashCode(this.valorAvaliacao2);
+        hash = 13 * hash + this.metascore;
+        hash = 13 * hash + Objects.hashCode(this.imdbId);
+        hash = 13 * hash + (int) (Double.doubleToLongBits(this.avaliacaoImdb) ^ (Double.doubleToLongBits(this.avaliacaoImdb) >>> 32));
+        hash = 13 * hash + (int) (this.votosImdb ^ (this.votosImdb >>> 32));
+        hash = 13 * hash + Objects.hashCode(this.tipo);
+        hash = 13 * hash + Objects.hashCode(this.dvd);
+        hash = 13 * hash + Objects.hashCode(this.boxOffice);
+        hash = 13 * hash + Objects.hashCode(this.producao);
+        hash = 13 * hash + Objects.hashCode(this.website);
+        hash = 13 * hash + (this.response ? 1 : 0);
         return hash;
     }
 
@@ -419,16 +433,7 @@ public class Filme {
         if (this.votosImdb != other.votosImdb) {
             return false;
         }
-        if (this.dvd != other.dvd) {
-            return false;
-        }
-        if (this.boxOffice != other.boxOffice) {
-            return false;
-        }
         if (this.response != other.response) {
-            return false;
-        }
-        if (!Objects.equals(this.imdbId, other.imdbId)) {
             return false;
         }
         if (!Objects.equals(this.titulo, other.titulo)) {
@@ -488,26 +493,37 @@ public class Filme {
         if (!Objects.equals(this.valorAvaliacao2, other.valorAvaliacao2)) {
             return false;
         }
+        if (!Objects.equals(this.imdbId, other.imdbId)) {
+            return false;
+        }
         if (!Objects.equals(this.tipo, other.tipo)) {
+            return false;
+        }
+        if (!Objects.equals(this.dvd, other.dvd)) {
+            return false;
+        }
+        if (!Objects.equals(this.boxOffice, other.boxOffice)) {
             return false;
         }
         if (!Objects.equals(this.producao, other.producao)) {
             return false;
         }
-        return Objects.equals(this.website, other.website);
+        if (!Objects.equals(this.website, other.website)) {
+            return false;
+        }
+        return Objects.equals(this.id, other.id);
     }
 
     @Override
     public String toString() {
-        return "Filme{" + "imdbId=" + imdbId + ", titulo=" + titulo + ", ano=" + ano + ", classificacao=" 
-                + classificacao + ", lancamento=" + lancamento + ", duracao=" + duracao + ", genero=" + genero 
-                + ", diretor=" + diretor + ", escritor=" + escritor + ", atores=" + atores + ", enredo=" + enredo 
-                + ", linguagem=" + linguagem + ", pais=" + pais + ", premiacoes=" + premiacoes + ", posterUrl=" 
-                + posterUrl + ", fonteAvaliacao0=" + fonteAvaliacao0 + ", valorAvaliacao0=" + valorAvaliacao0 
-                + ", fonteAvaliacao1=" + fonteAvaliacao1 + ", valorAvaliacao1=" + valorAvaliacao1 + ", fonteAvaliacao2=" 
-                + fonteAvaliacao2 + ", valorAvaliacao2=" + valorAvaliacao2 + ", metascore=" + metascore 
-                + ", avaliacaoImdb=" + avaliacaoImdb + ", votosImdb=" + votosImdb + ", tipo=" + tipo + ", dvd=" 
-                + dvd + ", boxOffice=" + boxOffice + ", producao=" + producao + ", website=" + website + ", response=" 
-                + response + '}';
+        return "Filme{" + "id=" + id + ", titulo=" + titulo + ", ano=" + ano + ", classificacao=" + classificacao 
+                + ", lancamento=" + lancamento + ", duracao=" + duracao + ", genero=" + genero + ", diretor=" + diretor 
+                + ", escritor=" + escritor + ", atores=" + atores + ", enredo=" + enredo + ", linguagem=" + linguagem 
+                + ", pais=" + pais + ", premiacoes=" + premiacoes + ", posterUrl=" + posterUrl + ", fonteAvaliacao0=" 
+                + fonteAvaliacao0 + ", valorAvaliacao0=" + valorAvaliacao0 + ", fonteAvaliacao1=" + fonteAvaliacao1 
+                + ", valorAvaliacao1=" + valorAvaliacao1 + ", fonteAvaliacao2=" + fonteAvaliacao2 + ", valorAvaliacao2=" 
+                + valorAvaliacao2 + ", metascore=" + metascore + ", imdbId=" + imdbId + ", avaliacaoImdb=" + avaliacaoImdb 
+                + ", votosImdb=" + votosImdb + ", tipo=" + tipo + ", dvd=" + dvd + ", boxOffice=" + boxOffice + ", producao=" 
+                + producao + ", website=" + website + ", response=" + response + '}';
     }
 }
