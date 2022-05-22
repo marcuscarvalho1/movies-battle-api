@@ -6,8 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -23,11 +21,10 @@ public class Partida implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuarioLogado;
+    private Long usuarioLogadoId;
     private int pontos;
     private int erros;
+    private boolean encerrada;
 
     public Partida() {
         //Construtor padrão
@@ -35,9 +32,10 @@ public class Partida implements Serializable{
     
     public Partida(Partida p){
         this.id = p.id;
-        this.usuarioLogado = p.usuarioLogado;
+        this.usuarioLogadoId = p.usuarioLogadoId;
         this.pontos = p.pontos;
         this.erros = p.erros;
+        this.encerrada = p.encerrada;
     }
     
     //Getters & setters
@@ -45,8 +43,8 @@ public class Partida implements Serializable{
         this.id = id;
     }
 
-    public void setUsuarioLogado(Usuario usuarioLogado) {
-        this.usuarioLogado = usuarioLogado;
+    public void setUsuarioLogadoId(Long usuarioLogadoId) {
+        this.usuarioLogadoId = usuarioLogadoId;
     }
 
     public void setPontos(int pontos) {
@@ -57,12 +55,16 @@ public class Partida implements Serializable{
         this.erros = erros;
     }
 
+    public void setEncerrada(boolean encerrada) {
+        this.encerrada = encerrada;
+    }
+
     public Long getId() {
         return id;
     }
 
-    public Usuario getUsuarioLogado() {
-        return usuarioLogado;
+    public Long getUsuarioLogadoId() {
+        return usuarioLogadoId;
     }
 
     public int getPontos() {
@@ -73,13 +75,18 @@ public class Partida implements Serializable{
         return erros;
     }
 
+    public boolean isEncerrada() {
+        return encerrada;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 31 * hash + Objects.hashCode(this.id);
-        hash = 31 * hash + Objects.hashCode(this.usuarioLogado);
-        hash = 31 * hash + this.pontos;
-        hash = 31 * hash + this.erros;
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.usuarioLogadoId);
+        hash = 97 * hash + this.pontos;
+        hash = 97 * hash + this.erros;
+        hash = 97 * hash + (this.encerrada ? 1 : 0);
         return hash;
     }
 
@@ -101,15 +108,18 @@ public class Partida implements Serializable{
         if (this.erros != other.erros) {
             return false;
         }
+        if (this.encerrada != other.encerrada) {
+            return false;
+        }
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        return Objects.equals(this.usuarioLogado, other.usuarioLogado);
+        return Objects.equals(this.usuarioLogadoId, other.usuarioLogadoId);
     }
 
     @Override
     public String toString() {
-        return "Partida{" + "id=" + id + ", usuarioLogado=" + usuarioLogado + ", pontos=" + pontos + ", erros=" 
-                + erros + '}';
+        return "Partida{" + "id=" + id + ", usuarioLogadoId=" + usuarioLogadoId + ", pontos=" + pontos + ", erros=" 
+                + erros + ", encerrada=" + encerrada + '}';
     }
 }

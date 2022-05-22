@@ -29,7 +29,7 @@ public class DuplaFilmeJaUsadaResource {
     @PostMapping("/ja-usada")
     @ApiOperation(value = "Retorna se a referida combinação de filmes já foi utilizada nesta partida")
     public DuplaFilmeJaUsada pesquisaDuplaFilmeJaUsada(@RequestBody DuplaFilmeJaUsadaForm duplaFilmeJaUsadaForm1){
-        return duplaFilmeJaUsadaRepository1.pesquisaPorFilme1EFile2(duplaFilmeJaUsadaForm1.getIdFilme1(), 
+        return duplaFilmeJaUsadaRepository1.pesquisaPorFilme1EFilme2(duplaFilmeJaUsadaForm1.getIdFilme1(), 
                 duplaFilmeJaUsadaForm1.getIdFilme2());
     }
     

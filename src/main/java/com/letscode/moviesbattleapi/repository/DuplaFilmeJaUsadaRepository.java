@@ -12,6 +12,6 @@ public interface DuplaFilmeJaUsadaRepository extends JpaRepository<DuplaFilmeJaU
     
     @Query("SELECT dfju FROM DuplaFilmeJaUsada dfju "
          + "WHERE (dfju.idFilme1 = ?1 AND idFilme2 = ?2) OR (dfju.idFilme2 = ?1 AND idFilme1 = ?2)")
-    DuplaFilmeJaUsada pesquisaPorFilme1EFile2(Long valorAleatorio1, Long valorAleatorio2);
+    DuplaFilmeJaUsada pesquisaPorFilme1EFilme2(Long idFilme1, Long idFilme2);
     
 }
