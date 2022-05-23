@@ -2,6 +2,10 @@ INSERT INTO TB_USUARIO(`nome_usuario`, `senha`)
 VALUES
 ('Jogador1', 'letscode'),
 ('Jogador2', 'letscode');
+INSERT INTO TB_RANKING(`id`, `pontos`, `posicao`, `tb_usuario_id`)
+VALUES
+(1, 5, 1, 1),
+(2, 4, 2, 2);
 INSERT INTO TB_FILME(`Title`, `Release_Year`, `Rated`, `Released`, `Runtime`, `Genre`, `Director`, `Writer`, `Actors`, `Plot`, 
 `Language`, `Country`, `Awards`, `Poster`, `Ratings0Source`, `Ratings0Value`, `Ratings1Source`, `Ratings1Value`, 
 `Ratings2Source`, `Ratings2Value`, `Metascore`, `imdb_Rating`, `imdb_Votes`, `imdbID`, `Type`, `DVD`, `Box_Office`, `Production`, 

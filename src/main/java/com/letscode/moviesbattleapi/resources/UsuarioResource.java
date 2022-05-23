@@ -47,17 +47,23 @@ public class UsuarioResource {
     
     @PostMapping("/insere")
     @ApiOperation(value = "Insere um novo usuário")
-    public UsuarioOutput insereUsuario(@RequestBody Usuario usuario1){
-        Usuario novoUsuario = usuarioRepository1.save(usuario1);
-        if(novoUsuario != null){
-            return new UsuarioOutput(novoUsuario.getId(), novoUsuario.getNomeUsuario());
+    public ResponseEntity<UsuarioOutput> insereUsuario(@RequestBody Usuario usuario1){
+        Usuario usuario2 = usuarioRepository1.pesquisaNomeUsuarioRepetido(usuario1.getNomeUsuario());
+        if(usuario2 == null){
+            Usuario novoUsuario = usuarioRepository1.save(usuario1);
+            if(novoUsuario != null){
+                return ResponseEntity.status(HttpStatus.OK).body(new UsuarioOutput(novoUsuario.getId(), 
+                        novoUsuario.getNomeUsuario()));
+            }
+
+            return null;
+        }else{
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
-        
-        return null;
     }
     
     @PostMapping("/autentica")
-    @ApiOperation(value = "Autentica um usuário, dado um logine uma senha")
+    @ApiOperation(value = "Autentica um usuário, dado um login e uma senha")
     public ResponseEntity<UsuarioOutput> autenticaUsuario(@RequestBody Usuario usuario1){
         Usuario usuarioLogado = usuarioRepository1.pesquisaLogin(usuario1.getNomeUsuario(), usuario1.getSenha());
         if(usuarioLogado != null){
