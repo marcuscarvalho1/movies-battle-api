@@ -77,9 +77,9 @@ public class PartidaResource {
                 Partida partida1 = OPartida.get();
                 if(partida1 != null && !partida1.isEncerrada()){
                     Filme[] filmes = filmeRepository1.findDuplaFilmes(escolhaFilmeForm1.getFilme1Id(), escolhaFilmeForm1.getFilme2Id());
-                    double pontuacaoFilme1 = filmes[0].getVotosImdb() * filmes[0].getAvaliacaoImdb();
-                    double pontuacaoFilme2 = filmes[1].getVotosImdb() * filmes[1].getAvaliacaoImdb();
-                    Long filmeMelhorPontuacao = pontuacaoFilme1 > pontuacaoFilme2 ? filmes[0].getId() : filmes[1].getId();
+                    Double pontuacaoFilme1 = filmes[0].getVotosImdb() * filmes[0].getAvaliacaoImdb();
+                    Double pontuacaoFilme2 = filmes[1].getVotosImdb() * filmes[1].getAvaliacaoImdb();
+                    Long filmeMelhorPontuacao = Double.compare(pontuacaoFilme1, pontuacaoFilme2) > 0 ? filmes[0].getId() : filmes[1].getId();
                     //Caso tenha acertado, atualiza a pontuação da partida.
                     if(filmeMelhorPontuacao.equals(escolhaFilmeForm1.getFilmeEscolhidoId())){
                         partida1.setPontos(partida1.getPontos() + 1);
@@ -136,13 +136,16 @@ public class PartidaResource {
                     ranking1.setUsuario(usuarioRepository1.findById(partida1.getUsuarioLogadoId()).get());
                 }
                 if(reordenarRanking){
+                    if(ranking1.getId() == null){
+                        ranking1.setId(rankingRepository1.count() + 1);
+                    }
                     rankingRepository1.save(ranking1);
                     List<Ranking>rankingListaOrdenada = Util.reordenaRanking(rankingRepository1.findAllByOrderByPontosDesc());
                     rankingRepository1.deleteAll();
                     rankingRepository1.saveAll(rankingListaOrdenada);
                 }
                 
-                return ResponseEntity.status(HttpStatus.OK).build();
+                return ResponseEntity.status(HttpStatus.OK).body(partida1);
             }else{
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
             }

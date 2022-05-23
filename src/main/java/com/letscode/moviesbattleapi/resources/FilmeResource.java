@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,10 +47,12 @@ public class FilmeResource {
         Long[] doisValoresAleatorios = {0L,0L};
         while(!achouDuplaNaoRepetida){
             doisValoresAleatorios = Util.devolveDuplaValoresAleatorios(filmeRepository1.count());
-            DuplaFilmeJaUsada duplaFilmeJaUsada1 = 
-                    duplaFilmeJaUsadaRepository1.pesquisaPorFilme1EFilme2(doisValoresAleatorios[0], doisValoresAleatorios[1]);
-            if(duplaFilmeJaUsada1 == null){
-                achouDuplaNaoRepetida = true;
+            if(!doisValoresAleatorios[0].equals(doisValoresAleatorios[1])){
+                DuplaFilmeJaUsada duplaFilmeJaUsada1 = 
+                        duplaFilmeJaUsadaRepository1.pesquisaPorFilme1EFilme2(doisValoresAleatorios[0], doisValoresAleatorios[1]);
+                if(duplaFilmeJaUsada1 == null){
+                    achouDuplaNaoRepetida = true;
+                }
             }
         }
         //Encapsula os filmes para que possam ser mandados para o front
