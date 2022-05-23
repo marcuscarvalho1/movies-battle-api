@@ -43,13 +43,13 @@ public class SessaoResource {
             return ResponseEntity.status(HttpStatus.OK).body(sessaoUsuarioResposta);
         }
         
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
     
     @DeleteMapping("/encerra")
     @ApiOperation(value = "Encerra uma sessão de usuário")
-    public void encerraSessao(@RequestBody Sessao sessao1){
-        sessaoRepository1.delete(sessao1);
+    public void encerraSessao(){
+        sessaoRepository1.deleteAll();
     }
     
 }
