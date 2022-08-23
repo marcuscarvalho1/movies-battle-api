@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Order;
  *
  * @author Marcus
  */
-public class UtilTest {
+public class UtilTests {
     @Test
     @Order(1)
     public void testDevolveDuplaValoresAleatorios(){
