@@ -14,6 +14,8 @@ import org.mockito.Mockito;
 import static org.mockito.Mockito.doReturn;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 
@@ -21,6 +23,7 @@ import org.mockito.MockitoAnnotations;
  *
  * @author Marcus
  */
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class PartidaResourcesTests {
     
     @InjectMocks
@@ -43,7 +46,7 @@ public class PartidaResourcesTests {
     
     @BeforeEach
     public void setup(){
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
     }
     
     @Test
